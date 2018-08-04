@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Conditional statements</h1>
+    <script>
+    document.write('1<br>');
+    document.write('2<br>');
+    document.write('3<br>');
+    document.write('4<br>');
+
+    </script>
+
+    <h2>IF - true</h2>
+    <script>
+            document.write('1<br>');
+            if(false){
+                document.write('2<br>');
+            }
+            else{
+                document.write('3<br>');
+            }
+            document.write('4<br>');
+        
+    </script>
+<h1>조건문</h1>
+<input id="N_D" type="button" value="N" onclick="
+if(document.querySelector('#N_D').value === 'N'){
+document.querySelector('body').style.backgroundColor='purple';
+document.querySelector('body').style.color = 'yellow';
+document.querySelector('#N_D').value = 'D';
+} else {
+document.querySelector('body').style.backgroundColor = 'yellow';
+document.querySelector('body').style.color = 'purple';
+document.querySelector('#N_D').value = 'N'
+}
+">
+
+<h2>중복의 제거</h2>
+<input type="button" value="N" onclick="
+var x = document.querySelector('body')
+if(this.value === 'N'){
+x.style.backgroundColor='purple';
+x.style.color = 'yellow';
+this.value = 'D';
+} else {
+x.style.backgroundColor = 'yellow';
+x.style.color = 'purple';
+this.value = 'N'
+}
+">
+   
+</body>
+</html>
