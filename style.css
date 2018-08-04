@@ -1,0 +1,36 @@
+a{
+  color:gray;
+  text-decoration: none;
+}
+h1{
+  pont-size:30px;
+  text-align: center;
+  border-bottom: 1px gray solid;
+  margin: 0;
+  padding: 10px;
+}
+ol{
+  border-right: 1px gray solid;
+  width: 150px;
+  margin: 0;
+}
+#grid{
+  display:grid;
+  grid-template-columns: 200px 1fr;
+}
+body{
+  margin:0;
+}
+@media(max-width:500px){
+#grid{
+    display:block;
+  }
+ h1{
+border-bottom:none;
+}
+ol{
+  border-right:none;
+  }
+}
+h1{
+  background-color: powderblue;
