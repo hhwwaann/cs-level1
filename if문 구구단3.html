@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>if문을 활용한 구구단</h1>
+    
+    <script>
+        var n = prompt('숫자를 입력해주세요');     
+        var n_int = parseInt(n);
+            console.log(typeof n_int);
+            if(typeof n_int == Number){
+            document.write('숫자만 입력가능합니다');
+          
+           }else if (n < 2||n > 9){
+            document.write('2부터 9이하의 값을 입력해주세요!')
+             
+            } else {
+            document.write(' <h1> ' + n + ' 단</h2> ')
+            for(var i = 1;i < 10;i++){
+                var 곱 = n * i;
+                document.write(n + ' * ' + i + ' = ' + 곱 + '<br>');
+            
+            }
+        }
+    
+    </script>
+</body>
+</html>

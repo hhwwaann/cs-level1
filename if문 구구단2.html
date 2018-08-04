@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>if문을 활용한 구구단</h1>
+    출력할 단:<input type="text" id = '구구단'>
+    <button onclick='출력()'>확인</button>
+    <script>
+        function 출력(){
+        var strN = document.getElementById('구구단').value;
+        var n = Number(strN);
+        if (n < 2||n > 9){
+            document.write('2부터 9이하의 값을 입력해주세요!')
+            } else {
+            document.write(' <h1> ' + n + ' 단</h2> ')
+            for(var i = 1;i < 10;i++){
+                var 곱 = n * i;
+                document.write(n + ' * ' + i + ' = ' + 곱 + '<br>');
+            }
+        }
+    }
+    </script>
+</body>
+</html>
