@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>4칙연산자 계산기</h1>
+    <div> 
+    첫번째 수 : <input type="text" id = 'n1'><br>
+    연산자 : <input type="text" id = 'op'><br>
+    두번째 수 : <input type="text" id = 'n2'><br>
+    <button onclick = main()>확인</button><br>
+    </div>
+    <div id='output'>계산기 구현</div>
+    <script>
+        //if구문으로 4칙연산자구현
+        function main(){
+            var str1 = document.getElementById('n1').value;
+            var str2 = document.getElementById('n2').value;
+            var op = document.getElementById('op').value;
+            var n1 = Number(str1);
+            var n2 = Number(str2);
+            
+            var cal = document.getElementById('output');
+            var str = '';
+            
+           if(op === '+'){
+            str += '더하기: ' + (n1 + n2) + '<br>';
+           } else if(op === '-'){
+            str += '빼기: ' + (n1 - n2) + '<br>';
+           } else if(op === '*'){
+            str += '곱하기: ' + (n1 * n2) + '<br>';
+           } else if(op === '/'){
+            str += '나누기: ' + (n1 / n2) + '<br>';
+           } else {
+              str += '4칙 연산자만 입력해주세요';
+           } 
+           cal.innerHTML = str;
+        }
+    </script>
+</body>
+</html>
