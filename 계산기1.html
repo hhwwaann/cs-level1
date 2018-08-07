@@ -7,20 +7,26 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>계산기</h1>
     <div id = 'output'>계산기 구현하기</div>
-    
     <script>
-    function main(){
-        console.log('caculator1');
-        var cal = document.getElementById('output');
-        cal.innerHTML = '계산기 구현';
+        function main(){
+            console.log('caculator1');
+            var cal = document.getElementById('output');
+            var str = '';
+            str += '<h2>계산기 구현</h2>';
         
-        console.log(7 + 7);
-        console.log(7 - 7);
-        console.log(7 * 7);
-        console.log(7 / 7);
+       
+            var n1 = parseFloat(prompt('첫번째 숫자를 입력하세요'));
+            var n2 = parseFloat(prompt('두번째 숫자를 입력하세요'));
+            str += '더하기: ' + (n1 + n2) + '<br>';
+            str += '빼기: ' + (n1 - n2) + '<br>';
+            str += '곱하기: ' + (n1 * n2) + '<br>';
+            str += '나누기: ' + (n1 / n2) + '<br>';
+        
+            cal.innerHTML = str;
         }
-    main();
+        main();
     </script>
 </body>
 </html>
