@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #output {
+        background-color: midnightblue;
+        padding: 10px;
+        font-size: 37px;
+        width: 435px;
+        color:silver;
+    }
+
+    button {
+        background-color:silver;
+        font-size : 30px;
+        width: 100px;
+        height: 100px;
+        margin: 5px;
+    }
+    </style>
+</head>
+
+<body>
+   
+    <h1>gui 계산기</h1>
+    <div id = 'output'>0</div>
+    <div id = 'btn1'>
+        <button id = '7' onclick="clicknums(event)">7</button>
+        <button id = '8' onclick="clicknums(event)">8</button>
+        <button id = '9' onclick="clicknums(event)">9</button>
+        <button id = '/' onclick="clicknums(event)">/</button>
+    </div>
+    <div id = 'btn2'>
+            <button id = '4' onclick="clicknums(event)">4</button>
+            <button id = '5' onclick="clicknums(event)">5</button>
+            <button id = '6' onclick="clicknums(event)">6</button>
+            <button id = '*' onclick="clicknums(event)">*</button>
+    </div>
+    <div id = 'btn3'>
+                <button id = '1' onclick="clicknums(event)">1</button>
+                <button id = '2' onclick="clicknums(event)">2</button>
+                <button id = '3' onclick="clicknums(event)">3</button>
+                <button id = '-' onclick="clicknums(event)">-</button>
+    </div>
+    <div id = 'btn4'>
+            <button id = 'del' onclick="clicknums(event)">←</button>
+            <button id = '0' onclick="clicknums(event)">0</button>
+            <button id = '=' onclick="clickshowrets(event)">=</button>
+            <button id = '+' onclick="clicknums(event)">+</button>
+</div>
+
+    <script src='gui계산기.js'></script>
+</body>
+
+</html>
