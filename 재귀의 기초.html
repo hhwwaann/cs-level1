@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>재귀의 기초</h1>
+    <script>
+        //a부터 b까지 정수를 더해서 리턴해주는 함수
+        var rsum = function (a, b) {
+            if (a == b) {
+                return a;
+            }
+            return b + rsum(a, b - 1);
+        }
+        var x = rsum(1, 1);
+        console.log(x);
+
+        //재귀로 피보나치 수열을 구현하기
+        var fibo = function (n) {
+            if (n <= 0) {
+                return 0;
+            } else if (n === 1) {
+                return 1;
+            } else {
+                return fibo(n - 1) + fibo(n - 2);
+            }
+        }
+
+        console.log(fibo(5));
+
+        //다이나믹 프로그래밍(또는 memoization) 기법
+        var arr = [0, 1];
+
+        function fibo_d(n) {
+            if (arr[n] == undefined) {
+                arr[n] = fibo_d(n - 1) + fibo_d(n - 2);
+            }
+            return arr[n];
+        }
+    </script>
+</body>
+
+</html>
