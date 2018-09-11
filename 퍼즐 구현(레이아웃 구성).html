@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    button{
+      margin:1px;
+    }
+    </style>
+</head>
+<body>
+    <h1 id='title'>단어퍼즐 구현</h1>
+    <div id = 'word'>HELLO</div>
+    <div id='contents'></div>
+    <div id='skill'>
+        <button onclick='swap(event)'>뒤집기</button>
+        <button onclick='shift(event)'>밀어내기</button>
+    </div>
+    <div = 'check'>일치합니다</div>
+    <script>
+        var str = document.getElementById('word').innerHTML;
+        var contents = document.getElementById('contents');
+        
+        for(var i = 0;i < str.length;i++){
+            var btn = document.createElement('button');
+            btn.innerHTML = str[i];
+            contents.appendChild(btn);
+        }
+        
+        function swap(event){
+            console.log('뒤집습니다')
+        }
+        
+        function shift(event){
+            console.log('밉니다')
+        }
+        
+    </script>
+
+
+    
+</body>
+</html>
