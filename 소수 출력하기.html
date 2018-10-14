@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>1-10000 사이의 소수찾기</h2>
+    <div id='prime'></div>
+    <script>
+        var output = document.getElementById('prime');
+
+        // numbers = {};
+        // numbers.all = [];
+        // numbers.prime = [];
+        // numbers.isPrime = function (number);
+        // numbers.addPrime = function (number);
+        // numbers.getAllPrimes = function ();
+        // numbers.addAll = function (max_num);
+
+        //객체 선언
+        var numbers = {};
+        numbers.all = [];
+        numbers.prime = [];
+        //소수 찾기
+        numbers.isPrime = function (number) {
+            for (var i = 2; i < number; i++) {
+                if (number % i == 0) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        //모든숫자 정렬
+        numbers.addAllNumber = function (max_num) {
+            for (var i = 2; i < max_num; i++) {
+                this.all.push(i);
+            }
+        };
+        //소수를 배열안에 분류
+        numbers.calcPrime = function () {
+            for (var i = 0; i < this.all.length; i++) {
+                var n = this.all[i];
+                if (this.isPrime(n)) {
+                    this.prime.push(n);
+                }
+            }
+        };
+        //찾은 소수를 불러내기
+        numbers.CallPrime = function () {
+            var ret = '';
+            ret += '<h2>전체 소수의 갯수: ' + this.prime.length + ' 개</h2>';
+            for (var i = 0; i < this.prime.length; i++) {
+                ret += (i + 1) + '번째 소수: ' + this.prime[i] + '<br>';
+            }
+            return ret;
+        }
+        numbers.addAllNumber(10000);
+        numbers.calcPrime();
+        document.getElementById('prime').innerHTML = numbers.CallPrime();
+
+
+    </script>
+</body>
+
+</html>
