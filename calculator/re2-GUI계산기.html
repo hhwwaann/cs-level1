@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #background {
+            padding: 10px;
+            width: 365px;
+            margin: 25px;
+            background-color: gray;
+        }
+
+        h1 {
+            margin: 0px;
+            padding-bottom: 10px;
+        }
+
+        #output {
+            margin: 2px;
+            background-color: blue;
+            padding: 5px;
+            font-size: 20px;
+            width: 347px;
+            color: whitesmoke;
+        }
+
+        button {
+            margin: 3px;
+            background-color: silver;
+            padding: 8px;
+            font-size: 25px;
+            width: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='background'>
+        <h1>GUI-Calculator</h1>
+        <p id='output'>0</p>
+        <div>
+            <button onclick='clickNums(event)'>7</button>
+            <button onclick='clickNums(event)'>8</button>
+            <button onclick='clickNums(event)'>9</button>
+            <button onclick='clickNums(event)'>/</button>
+        </div>
+        <div>
+            <button onclick='clickNums(event)'>4</button>
+            <button onclick='clickNums(event)'>5</button>
+            <button onclick='clickNums(event)'>6</button>
+            <button onclick='clickNums(event)'>*</button>
+        </div>
+        <div>
+            <button onclick='clickNums(event)'>1</button>
+            <button onclick='clickNums(event)'>2</button>
+            <button onclick='clickNums(event)'>3</button>
+            <button onclick='clickNums(event)'>-</button>
+        </div>
+        <div>
+            <button onclick='clickNums(event)'>DEL</button>
+            <button onclick='clickNums(event)'>0</button>
+            <button onclick='clickResult(event)'>=</button>
+            <button onclick='clickNums(event)'>+</button>
+        </div>
+    </div>
+    <script>
+    //input 객체
+    var input = {'array' : []};
+    
+    input.showInput = function(){
+        return this.array.join('');
+    };
+
+    input.readyCalc = function(){
+        this.array = this.array.join('').split(' ');
+    };
+
+    input.getNumbers = function(){
+        var getNum = Number(this.array.shift());
+        return getNum;
+    };
+    
+    input.getOperator = function(){
+        var op = this.array.shift();
+        return op;
+    };
+
+    input.empty = function(){
+        return this.array.length === 0;
+    };
+
+    input.continueCalc = function(result){
+        return this.array.push(result);
+    }
+    
+    
+    //output 객체
+    var output = {};
+
+    output.isEmpty = function(){
+        if(input.array.length === 0){
+            output.text.innerHTML = '0';
+        }
+    };
+
+    output.text = document.getElementById('output');
+
+    output.print = function(result){
+        output.text.innerHTML = result;
+    };
+   
+    //calculator 객체
+    var calculator = {};
+
+    calculator.calculate = function(first, second, op){
+        var ret;
+        if(op === '+'){
+            ret = first + second;
+        } else if(op === '-'){
+            ret = first - second;
+        } else if(op === '*'){
+            ret = first * second;
+        } else if(op === '/'){
+            ret = first / second;
+        } else {
+            ret = '오류';
+        } return ret;
+    };
+
+    //button 핸들러 함수
+    var clickNums = function(event){
+        var str = event.target.innerHTML;
+        
+        if(str === 'DEL'){
+            input.array.pop();
+        }else if(str === '+'||str === '-'||str === '*'||str === '/'){
+            input.array.push(' ' + str + ' ');
+        }else{
+        input.array.push(str);
+        }
+        output.text.innerHTML = input.showInput();
+        output.isEmpty();        
+    };
+
+    var clickResult = function(event){
+        console.log(event.target.innerHTML);
+        
+        input.readyCalc();
+        var result = input.getNumbers();
+        while(!input.empty()){
+            var op = input.getOperator();
+            var second = input.getNumbers();
+            result = calculator.calculate(result, second, op);
+        }
+        output.print(result);
+        input.continueCalc(result);
+    };
+    </script>
+</body>
+
+</html>
