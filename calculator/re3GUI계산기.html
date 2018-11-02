@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #background {
+            padding: 10px;
+            width: 365px;
+            margin: 25px;
+            background-color: silver;
+        }
+
+        h1 {
+            margin: 0px;
+            padding-bottom: 10px;
+        }
+
+        #output {
+            margin: 2px;
+            background-color: blue;
+            padding: 5px;
+            font-size: 20px;
+            width: 347px;
+            color: whitesmoke;
+        }
+
+        button {
+            margin: 3px;
+            background-color: silver;
+            padding: 8px;
+            font-size: 25px;
+            width: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id = 'background'>
+        <h1>GUI-Calculator</h1>
+        <div id='output'>0</div>
+        <div class='contents'>
+            <button onclick='clickNumbers(event)'>7</button>
+            <button onclick='clickNumbers(event)'>8</button>
+            <button onclick='clickNumbers(event)'>9</button>
+            <button onclick='clickNumbers(event)'>/</button>
+        </div>
+        <div class='contents'>
+            <button onclick='clickNumbers(event)'>4</button>
+            <button onclick='clickNumbers(event)'>5</button>
+            <button onclick='clickNumbers(event)'>6</button>
+            <button onclick='clickNumbers(event)'>*</button>
+        </div>
+        <div class='contents'>
+            <button onclick='clickNumbers(event)'>1</button>
+            <button onclick='clickNumbers(event)'>2</button>
+            <button onclick='clickNumbers(event)'>3</button>
+            <button onclick='clickNumbers(event)'>-</button>
+        </div>
+        <div class='contents'>
+            <button onclick='clickNumbers(event)'>DEL</button>
+            <button onclick='clickNumbers(event)'>0</button>
+            <button onclick='clickNumbers(event)'>%</button>
+            <button onclick='clickNumbers(event)'>+</button>
+        </div>
+        <div class='bottom'>
+            <button onclick='clickbracket(event)'>(</button>
+            <button onclick='clickbracket(event)'>)</button>
+            <button onclick='clickShowResult()'>=</button>
+            <button onclick='clickRemoveAll()'>clear</button>
+        </div>
+    </div>
+    <script>
+        //input 객체
+        var input = { 'array': [] };
+        input.showInput = function () {
+            return this.array.join('');
+        };
+        input.getNumbers = function () {
+            var getNum = Number(this.array.shift());
+            return getNum;
+        };
+
+        input.getOperator = function () {
+            var op = this.array.shift();
+            return op;
+        };
+
+        input.empty = function () {
+            return input.array.length === 0;
+        };
+
+        input.prepareCalc = function () {
+            this.array = this.array.join('').split(' ');
+        };
+
+        input.continueCalc = function (result) {
+            return this.array.push(result);
+        };
+
+        input.clear = function () {
+            this.array = [];
+        };
+
+        //output 객체
+        var output = {};
+        output.text = document.getElementById('output');
+
+        output.print = function (result) {
+            output.text.innerHTML = result;
+        };
+
+        output.isEmpty = function () {
+            if (input.array.length === 0) {
+                output.text.innerHTML = '0';
+            }
+        };
+
+
+
+        //caculator 객체
+        var calculator = {};
+        calculator.calculate = function (first, second, op) {
+            //계산값을 담아주는 ret변수 선언
+            var ret;
+            if (op === '+') {
+                ret = first + second;
+            } else if (op === '-') {
+                ret = first - second;
+            } else if (op === '*') {
+                ret = first * second;
+            } else if (op === '/') {
+                ret = first / second;
+            } else if (op === '%') {
+                ret = first / 100;
+            } else {
+                ret = '오류'
+            } return ret;
+        };
+
+
+
+        //button 핸들러
+        
+        //숫자와 연산자 핸들러
+        var clickNumbers = function (event) {
+            var str = event.target.innerHTML;
+            console.log(str);
+            if (str === 'DEL') {
+                input.array.pop();
+                //배열안에 있는 값들을 공백으로 구분해야하기때문에 연산자에 공백을 넣어준다
+            } else if (str === '+' || str === '-' || str === '*' || str === '/' || str === '%') {
+                input.array.push(' ' + str + ' ');
+            } else {
+                input.array.push(str);
+            }
+            output.text.innerHTML = input.showInput();
+            output.isEmpty();
+        };
+        
+        //클리어 핸들러
+        var clickRemoveAll = function () {
+            input.clear();
+            output.isEmpty();
+        };
+
+        //우선순위를 결정해주는 괄호
+        var clickbracket = function (event) {
+            var bracket = event.target.innerHTML;
+            console.log(bracket);
+        };
+        //미완성
+        
+        //계산결과를 보여주는 핸들러
+        var clickShowResult = function () {
+            input.prepareCalc();
+            var result = input.getNumbers();
+            while (!input.empty()) {
+                var op = input.getOperator();
+                var second = input.getNumbers();
+                result = calculator.calculate(result, second, op);
+            }
+            input.continueCalc(result);
+            output.print(result);
+        };
+
+
+
+    </script>
+</body>
+
+</html>
