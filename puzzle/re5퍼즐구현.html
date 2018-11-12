@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        button {
+            background-color: silver;
+            color: black;
+            font-size: 25px;
+        }
+
+        #skills {
+            background-color: blue;
+            color: white;
+            font-size: 17px;
+        }
+
+        #timebar {
+            background-color: red;
+            color: yellow;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>wordPuzzleGame</h1>
+    <div id='score'>SCORE(3문제 패스시 성공!) : </div>
+    <p id='word1'></p>
+    <p id='word2'></p>
+    <div>
+        <button id='skills' onclick='swap()'>뒤집기</button>
+        <button id='skills' onclick='lshift()'>왼쪽 밀어내기</button>
+        <button id='skills' onclick='rshift()'>오른쪽 밀어내기</button>
+    </div>
+    <p id='check'>일치합니다</p>
+    <button onclick="startTime()" id='timebar'>시간 측정 시작</button>
+    <p id='time'>0</p>
+    <script>
+        var word1 = document.getElementById('word1');
+        var word2 = document.getElementById('word2');
+        var check = document.getElementById('check');
+        var score = document.getElementById('score');
+        var time = document.getElementById('time');
+        var game = {
+            'btns': [],
+            'PLAYCOUNT': []
+        };
+
+        var startTime = function () {
+            game.startTime = Date.now();
+        };
+
+        game.words = 'DILIGENT,GENIUS,STEADY,FIGHTING,SUNGHWAN'.split(',');
+        game.choice = function () {
+            var idx = parseInt(Math.random() * this.words.length);
+            this.answer = this.words[idx];
+            this.letter = this.answer.split('');
+            word1.innerHTML = this.answer;
+        };
+
+
+        game.addbutton = function () {
+            for (var i = 0; i < this.answer.length; i++) {
+                var btn = document.createElement('button');
+                btn.innerHTML = this.answer[i];
+                word2.appendChild(btn);
+                this.btns.push(btn);
+            }
+        };
+
+        const MAXPLAY = 3;
+        var i = 1;
+        game.updateDisplay = function () {
+            if (this.answer === this.letter.join('')) {
+                check.innerHTML = '일치합니다';
+                score.innerHTML += i + '번문제 패스! ';
+                this.PLAYCOUNT.push(i);
+                i++;
+                this.init();
+            }
+            else {
+                check.innerHTML = '일치하지 않습니다'
+            }
+
+            if (this.PLAYCOUNT.length === MAXPLAY) {
+                clearInterval(watchTime);
+                var finishTime = (Date.now() - this.startTime) / 1000 + ' sec';
+
+                if (isNaN(game.startTime)) {
+                    alert('기록측정을 안하셨습니다')
+                } else {
+                    alert('수고하셨습니다! 당신의 기록은 ' + finishTime + ' 입니다');
+                }
+            }
+        };
+
+        game.init = function () {
+            for (var i = 0; i < this.letter.length; i++) {
+                word2.removeChild(this.btns[i]);
+            };
+            this.btns = [];
+            this.startGame();
+        };
+
+        //button 핸들러
+        var swap = function () {
+            var temp = [];
+            while (game.letter.length) {
+                var s = game.letter.pop();
+                temp.push(s);
+            }
+            game.letter = temp;
+            for (var i = 0; i < game.letter.length; i++) {
+                game.btns[i].innerHTML = game.letter[i];
+            }
+            game.updateDisplay();
+        };
+
+        var rshift = function () {
+            var s = game.letter.pop();
+            game.letter.unshift(s);
+            for (var i = 0; i < game.letter.length; i++) {
+                game.btns[i].innerHTML = game.letter[i];
+            }
+            game.updateDisplay();
+
+        };
+
+        var lshift = function () {
+            var s = game.letter.shift();
+            game.letter.push(s);
+            for (var i = 0; i < game.letter.length; i++) {
+                game.btns[i].innerHTML = game.letter[i];
+            }
+            game.updateDisplay();
+
+        };
+
+        //게임 셔플
+        game.shuffle = function () {
+            var toggle = Math.floor(Math.random() * 2) === 0;
+            if (toggle) {
+                swap();
+            }
+            for (var i = 0; i < Math.random() * this.answer.length; i++) {
+                rshift();
+            }
+        };
+
+        //게임 스타트
+        game.startGame = function () {
+            this.choice();
+            this.addbutton();
+            this.shuffle();
+        };
+        game.startGame();
+
+        //게임 시간측정기
+        var timeBoard = function () {
+            var playTime = (Date.now() - game.startTime) / 1000 + ' 초';
+
+            if (isNaN(game.startTime)) {
+                time.innerHTML = '기록이 없습니다';
+            } else {
+                time.innerHTML = playTime;
+            }
+        };
+        var watchTime = setInterval(timeBoard, 100);
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
