@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>getLottoNum</h1>
+    <p>
+        <button onclick='lotto.getNum()'>번호 받기</button>
+    </p>
+    <div id='lottoNum'></div>
+    
+    <script>
+        var lottoNum = document.getElementById('lottoNum');
+        
+        //로또 객체
+        var lotto = {};
+        lotto.arr = [];
+        
+        //로또번호를 뽑는 함수 구현
+        //번호가 중복되지않게 하기 위해 reduce를 활용
+        lotto.getNum = function () {
+            while (this.arr.length != 6) {
+                this.arr.push(Math.floor(Math.random() * 45) + 1);
+                this.arr = this.arr.reduce((a, b) => {
+                    if (a.indexOf(b) < 0) a.push(b);
+                    return a;
+                }, []);    
+        }
+        this.letter = this.arr;
+        lottoNum.innerHTML = '받은 로또 번호는 ' + '( ' + lotto.letter + ' )' + '입니다';
+        };
+
+    </script>
+</body>
+
+</html>
