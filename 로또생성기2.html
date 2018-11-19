@@ -26,6 +26,11 @@
         lotto.arr = [];
 
         lotto.getNum = function () {
+            //배열 초기화 후 번호생성
+            if (this.arr.length > 0) {
+                this.arr = [];
+            };
+
             while (this.arr.length != 6) {
                 //6개의 랜덤 로또번호를 생성하되, 번호의 중복을 막기위해 reduce메서드 활용
                 this.arr.push(Math.floor(Math.random() * 45) + 1);
@@ -40,6 +45,7 @@
 
 
         //추첨번호 채점
+        //winLotto는 역대 당첨된 로또번호중 가장 자주나온 번호로 구성하였다
         lotto.winLotto = [27, 1, 20, 43, 40, 34];
 
         var checkLotto = function () {
@@ -50,7 +56,7 @@
                 if (a.indexOf(b) < 0) a.push(b);
                 return a;
             }, []);
-            
+
             //결과를 보여주는 if구문
             if (lotto.arr.length === 0) {
                 winOrNot.innerHTML = '로또번호를 먼저 받으시기 바랍니다.'
