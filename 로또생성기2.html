@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>LottoPlay</h1>
+    <p>
+        <button onclick='lotto.getNum()'>번호 받기</button>
+    </p>
+    <div id='lottoNum'></div>
+    <p>
+        <button onclick='checkLotto()'>당첨 확인</button>
+        <div id='winOrNot'></div>
+    </p>
+    <script>
+        var lottoNum = document.getElementById('lottoNum');
+        var winOrNot = document.getElementById('winOrNot');
+
+        var lotto = {};
+        lotto.arr = [];
+
+        lotto.getNum = function () {
+            while (this.arr.length != 6) {
+                //6개의 랜덤 로또번호를 생성하되, 번호의 중복을 막기위해 reduce메서드 활용
+                this.arr.push(Math.floor(Math.random() * 45) + 1);
+                this.arr = this.arr.reduce((a, b) => {
+                    if (a.indexOf(b) < 0) a.push(b);
+                    return a;
+                }, []);
+            }
+            this.letter = this.arr;
+            lottoNum.innerHTML = '받은 로또 번호는 ' + '( ' + lotto.letter + ' )' + '입니다';
+        };
+
+
+        //추첨번호 채점
+        lotto.winLotto = [27, 1, 20, 43, 40, 34];
+
+        var checkLotto = function () {
+            //생성한 로또번호 배열과 1등번호의 배열을 하나의 배열로 만들어서 reduce메서드를 활용해 채점하는 방식
+            lotto.letter.push(lotto.winLotto.join());
+            var ret = lotto.letter.join().split(',');
+            var result = ret.reduce((a, b) => {
+                if (a.indexOf(b) < 0) a.push(b);
+                return a;
+            }, []);
+            
+            //결과를 보여주는 if구문
+            if (lotto.arr.length === 0) {
+                winOrNot.innerHTML = '로또번호를 먼저 받으시기 바랍니다.'
+            } else if (result.length === 6) {
+                winOrNot.innerHTML = '축하합니다!!! 당신은 1등에 당첨되셨습니다!!!'
+            } else if (result.length === 7) {
+                winOrNot.innerHTML = '2등에 당첨되셨습니다'
+            } else if (result.length === 8) {
+                winOrNot.innerHTML = '3등에 당첨되셨습니다'
+            } else {
+                winOrNot.innerHTML = '아쉽지만 다음기회를 노려보세요.<br>번호는 ' + Math.abs(result.length - 12) + '개 맞히셨습니다.'
+            }
+        };
+
+
+    </script>
+</body>
+
+</html>
