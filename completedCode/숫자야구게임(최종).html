@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>숫자야구게임</h2>
+    <div>
+        <p>게임방법 : 1부터 9까지의 임의의 숫자를 3개 입력한뒤 SWING버튼 클릭.</p>
+        <input id='input' type="text">
+        <button onclick='gamePlay()'>SWING</button>
+        <p>
+            <img src="야구사진.jpg" width='350px'>
+        </p>
+        <p id='printResult'></p>
+    </div>
+    <script>
+        var output = document.getElementById('printResult');
+
+        const MAX = 3;
+        var userArr = [];
+        var gameAnswer = [];
+
+        var strike = 0;
+        var ball = 0;
+
+        function makeAnswer() {
+            while (gameAnswer.length != MAX) {
+                gameAnswer.push(Math.ceil(Math.random() * 9));
+                //중복방지
+                gameAnswer = gameAnswer.reduce((a, b) => {
+                    if (a.indexOf(b) < 0) a.push(b);
+                    return a;
+                }, []);
+            }
+        };
+
+        function checkNum() {
+            if (userArr.length != 3) {
+                alert('3개의 숫자를 입력하세요');
+            } else {
+                userArr = userArr.reduce((a, b) => {
+                    if (a.indexOf(b) < 0) a.push(b);
+                    return a;
+                }, []);
+
+                if (userArr.length != 3) {
+                    alert('중복되지 않는 숫자를 입력하세요');
+                }
+            }
+        };
+
+        function init() {
+            userArr = [];
+            strike = 0;
+            ball = 0;
+        };
+
+        function input() {
+            init();
+            var inputNum = document.getElementById('input').value;
+            userArr.push(inputNum);
+            userArr = userArr.join('').split('');
+            checkNum();
+        };
+
+        function swing() {
+            for (var i = 0; i < userArr.length; i++) {
+                if (userArr[i] == gameAnswer[i]) {
+                    strike++;
+                };
+
+                for (var s = 0; s < userArr.length; s++) {
+                    if (i != s && userArr[i] == gameAnswer[s]) {
+                        ball++;
+                    };
+                };
+            };
+        };
+
+        var n = 1;
+        function showResult() {
+            if (strike == MAX) {
+                output.innerHTML += n + '번째 시도: ' + strike + 'strike!! ' + '<br>' + '게임종료' + '<br>';
+                n = 1;
+                gameAnswer = [];
+            } else {
+                output.innerHTML += n + '번째 시도: ' + strike + 'strike!! ' + ball + 'ball!! ' + '<br>';
+                n++;
+            };
+        };
+
+        function gamePlay() {
+            makeAnswer();
+            input();
+            if (userArr.length === MAX) {
+                swing();
+                showResult();
+            };
+        };
+
+
+    </script>
+</body>
+
+</html>
